@@ -32,14 +32,14 @@ You can affect how letteravatar operates with the following settings:
 
 name | default | description
 -----|---------|------------
-`charCount` | 1 | Specifies the number letters to displayed.
+`charcount` | 1 | Specifies the number letters to displayed.
 `data` |  | input data
 `height` | 50px | set the height for the avatar
 `width` | 50px | set the width for the avatar
-`fontWeight` | 400 | set the font weight for the  avatar
-`fontSize` | 30px | set the font size for the letter
+`fontweight` | 400 | set the font weight for the  avatar
+`fontsize` | 30px | set the font size for the letter
 `shape` | square  | set the shape for the avatar. set 'round' for rounded avatars
-`fontFamily` | HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica, Arial,Lucida Grande, sans-serif | set the font Family of the avatar.
+`fontfamily` | HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica, Arial,Lucida Grande, sans-serif | set the font Family of the avatar.
 `avatarborder` | false | set the avatarborder to 'true' for the white border to avatar.
 `avatarcustomborder` | no default value | using this attribute set the custom style to avatar borders i.e <code> "border:5px solid black"</code>.
 
