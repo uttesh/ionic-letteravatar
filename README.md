@@ -1,6 +1,5 @@
-# ionic-letter-avatar
+# ionic-letter-avatar <a href="http://uttesh.github.io/ionic-letteravatar">Demo</a>
 
-<a href="http://uttesh.github.io/ionic-letteravatar">Demo</a>
 AngularJS directive for simple data avatar like gmail/inbox. 
 
 ## Quick start
