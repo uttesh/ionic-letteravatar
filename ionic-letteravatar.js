@@ -29,70 +29,57 @@
 				return {
 					restrict : 'AE',
 					replace : true,
-					scope: {
-						data: "@"
-					},
 					link : function (scope, element, attrs) {
 
-						function createAvatar() {
-							var params = {
-								charCount : attrs.charcount || defaultSettings.charCount,
-								data : params.data,
-								textColor : defaultSettings.textColor,
-								height : attrs.height || defaultSettings.height,
-								width : attrs.width || defaultSettings.width,
-								fontsize : attrs.fontsize || defaultSettings.fontsize,
-								fontWeight : attrs.fontweight || defaultSettings.fontWeight,
-								fontFamily : attrs.fontfamily || defaultSettings.fontFamily,
-								avatarBorderStyle : attrs.avatarcustomborder,
-								avatardefaultBorder : attrs.avatarborder,
-								defaultBorder : defaultSettings.defaultBorder,
-								shape : attrs.shape
-							};
+						var params = {
+							charCount : attrs.charcount || defaultSettings.charCount,
+							data : attrs.data,
+							textColor : defaultSettings.textColor,
+							height : attrs.height || defaultSettings.height,
+							width : attrs.width || defaultSettings.width,
+							fontsize : attrs.fontsize || defaultSettings.fontsize,
+							fontWeight : attrs.fontweight || defaultSettings.fontWeight,
+							fontFamily : attrs.fontfamily || defaultSettings.fontFamily,
+							avatarBorderStyle : attrs.avatarcustomborder,
+							avatardefaultBorder : attrs.avatarborder,
+							defaultBorder : defaultSettings.defaultBorder,
+							shape : attrs.shape
+						};
 
-							var c = params.data.substr(0, params.charCount).toUpperCase();
-							var cobj = getCharacterObject(c, params.textColor, params.fontFamily, params.fontWeight, params.fontsize);
-							var colorIndex = '';
-							var color = '';
+						var c = params.data.substr(0, params.charCount).toUpperCase();
+						var cobj = getCharacterObject(c, params.textColor, params.fontFamily, params.fontWeight, params.fontsize);
+						var colorIndex = '';
+						var color = '';
 
-							if (c.charCodeAt(0) < 65) {
-								color = getRandomColors();
-							} else {
-								colorIndex = Math.floor((c.charCodeAt(0) - 65) % defaultSettings.alphabetcolors.length);
-								color = defaultSettings.alphabetcolors[colorIndex];
-							}
-
-							var svg = getImgTag(params.width, params.height, color);
-							svg.append(cobj);
-							var lvcomponent = angular.element('<div>').append(svg.clone()).html();
-							var svgHtml = window.btoa(unescape(encodeURIComponent(lvcomponent)));
-							var component;
-							var base = defaultSettings.base;
-							var _style = '';
-							if (params.avatarBorderStyle) {
-								_style = params.avatarBorderStyle;
-							} else if (params.avatardefaultBorder) {
-								_style = params.defaultBorder;
-							}
-
-							if (params.shape) {
-								if (params.shape === 'round') {
-									var round_style = defaultSettings.radius + _style;
-									component = "<img src=" + base + svgHtml + " style='" + round_style + "' />";
-								}
-							} else {
-								component = "<img src=" + base + svgHtml + " style='" + _style + "' />";
-							}
-							element.html(component);
+						if (c.charCodeAt(0) < 65) {
+							color = getRandomColors();
+						} else {
+							colorIndex = Math.floor((c.charCodeAt(0) - 65) % defaultSettings.alphabetcolors.length);
+							color = defaultSettings.alphabetcolors[colorIndex];
 						}
 
-						scope.$watch('data', function(newVal) {
-							if(newVal) {
-								//delay it till the data is available
-								createAvatar();
-							}
-						});
+						var svg = getImgTag(params.width, params.height, color);
+						svg.append(cobj);
+						var lvcomponent = angular.element('<div>').append(svg.clone()).html();
+						var svgHtml = window.btoa(unescape(encodeURIComponent(lvcomponent)));
+						var component;
+						var base = defaultSettings.base;
+						var _style = '';
+						if (params.avatarBorderStyle) {
+							_style = params.avatarBorderStyle;
+						} else if (params.avatardefaultBorder) {
+							_style = params.defaultBorder;
+						}
 
+						if (params.shape) {
+							if (params.shape === 'round') {
+								var round_style = defaultSettings.radius + _style;
+								component = "<img src=" + base + svgHtml + " style='" + round_style + "' />";
+							}
+						} else {
+							component = "<img src=" + base + svgHtml + " style='" + _style + "' />";
+						}
+						element.replaceWith(component);
 					}
 				};
 			}
