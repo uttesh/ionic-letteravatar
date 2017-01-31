@@ -37,7 +37,7 @@
 						function createAvatar() {
 							var params = {
 								charCount : attrs.charcount || defaultSettings.charCount,
-								data : params.data,
+								data : scope.data,
 								textColor : defaultSettings.textColor,
 								height : attrs.height || defaultSettings.height,
 								width : attrs.width || defaultSettings.width,
