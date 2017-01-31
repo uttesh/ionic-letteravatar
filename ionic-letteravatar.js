@@ -21,8 +21,8 @@
 		charCount : 1,
 		fontFamily : 'HelveticaNeue-Light,Helvetica Neue Light,Helvetica Neue,Helvetica, Arial,Lucida Grande, sans-serif',
 		base : 'data:image/svg+xml;base64,',
-		radius : 'border-radius:30px;'
-
+		radius : 'border-radius:50%;',
+		mode: 'single'
 	});
 
 	nla.directive('ionicLetterAvatar', ['defaultSettings', function (defaultSettings) {
@@ -43,15 +43,18 @@
 							avatarBorderStyle : attrs.avatarcustomborder,
 							avatardefaultBorder : attrs.avatarborder,
 							defaultBorder : defaultSettings.defaultBorder,
-							shape : attrs.shape
+							shape : attrs.shape,
+							mode: attrs.mode || defaultSettings.mode
 						};
 
-						var c = params.data.substr(0, params.charCount).toUpperCase();
+						var c = getCharacters(params.data, params.charCount, params.mode);
 						var cobj = getCharacterObject(c, params.textColor, params.fontFamily, params.fontWeight, params.fontsize);
 						var colorIndex = '';
 						var color = '';
 
-						if (c.charCodeAt(0) < 65) {
+						if (attrs.color) {
+							color = attrs.color;
+						} else if (c.charCodeAt(0) < 65) {
 							color = getRandomColors();
 						} else {
 							colorIndex = Math.floor((c.charCodeAt(0) - 65) % defaultSettings.alphabetcolors.length);
@@ -110,6 +113,25 @@
 			});
 
 		return svgTag;
+	}
+
+	function getCharacters(data, charCount, mode) {
+		var words = data.split(' ');
+		if (mode == 'single') {
+			return data.substr(0, charCount).toUpperCase();
+		} else {
+			var chars = '';
+			var len = words.length;
+			for(var i=0; i<len; i++) {
+				chars += words[i].substr(0,1).toUpperCase();
+			}
+			if (chars.length > charCount) {
+				var l = chars.length / 2;
+				var d = (chars.length - charCount) / 2;
+				chars = chars.substr(0, l-d) + chars.substr(l+d, chars.length);
+			}
+			return chars;
+		}
 	}
 
 	function getCharacterObject(character, textColor, fontFamily, fontWeight, fontsize) {
